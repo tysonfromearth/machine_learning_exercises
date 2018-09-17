@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
-""" 
+"""
     This is the code to accompany the Lesson 3 (decision tree) mini-project.
 
-    Use a Decision Tree to identify emails from the Enron corpus by author:    
+    Use a Decision Tree to identify emails from the Enron corpus by author:
     Sara has label 0
     Chris has label 1
 """
-    
+
 import sys
 from time import time
 sys.path.append("../tools/")
@@ -23,9 +23,28 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 
 #########################################################
-### your code goes here ###
+### my code ###
+# import packages/modules/functions
+from sklearn import tree
+from sklearn.metrics import accuracy_score
 
+# define classifier
+clf = tree.DecisionTreeClassifier(min_samples_split=40)
 
+# train the model, time and print training time
+t0 = time()
+clf.fit(features_train, labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+# predict on the test data, time and print prediction time
+t1 = time()
+pred = clf.predict(features_test)
+print "prediction time:", round(time()-t1, 3), "s"
+
+# find the accuracy of the model and print results
+acc = accuracy_score(pred, labels_test)
+print "accuracy score:", acc
+
+# print the number of features
+print "number of features:", len(features_train[0])
 #########################################################
-
-
